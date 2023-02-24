@@ -35,64 +35,69 @@
 <!-- Start wrapper-->
  <div id="wrapper">
 
-  <!--Start sidebar-wrapper-->
+   <!--Start sidebar-wrapper-->
    <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
      <div class="brand-logo">
-      <a href={% static "index.html" %}>
-       <img src= {% static "assets/images/logo-icon.png"  %} class="logo-icon" alt="logo icon">
+      <a href="index.html">
+         <img src= {% static "assets/images/logo-icon.png"  %} class="logo-icon" alt="logo icon">
        <h5 class="logo-text">Smart Chick Farm</h5>
      </a>
    </div>
-
    <ul class="sidebar-menu do-nicescrol">
       <li class="sidebar-header">MAIN NAVIGATION</li>
       <li>
-        <a href={% static "index.html" %}>
+        <a href={% url "accounts:index" %}>
           <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
         </a>
       </li>
 
       <li>
-        <a href={% static "forms.html" %} >
-          <i class="zmdi zmdi-format-list-bulleted"></i> <span>Forms</span>
+        <a href={% url "accounts:icons"%}>
+          <i class="zmdi zmdi-invert-colors"></i> <span>UI Icons</span>
         </a>
       </li>
 
-      <li>
-        <a href={% static  "tables.html" %} >
-          <i class="zmdi zmdi-grid"></i> <span>Tables</span>
-        </a>
-      </li>
+{#      <li>#}
+{#        <a href={% url "forms.html"%}>#}
+{#          <i class="zmdi zmdi-format-list-bulleted"></i> <span>Forms</span>#}
+{#        </a>#}
+{#      </li>#}
+
+{#      <li>#}
+{#        <a href={% url "tables.html"%}>#}
+{#          <i class="zmdi zmdi-grid"></i> <span>Tables</span>#}
+{#        </a>#}
+{#      </li>#}
 
       <li>
-        <a href={% url  "calendar" %} >
+        <a href={% url "accounts:calendar"%}>
           <i class="zmdi zmdi-calendar-check"></i> <span>Calendar</span>
           <small class="badge float-right badge-light">New</small>
         </a>
       </li>
 
       <li>
-        <a href={% static "profile.html" %} >
+        <a href={% url "accounts:profile"%}>
           <i class="zmdi zmdi-face"></i> <span>Profile</span>
         </a>
       </li>
 
       <li>
-        <a href={% url 'login' %} target="_blank">
+        <a href={% url "accounts:login" %} target="_blank">
           <i class="zmdi zmdi-lock"></i> <span>Login</span>
         </a>
       </li>
 
        <li>
-        <a href={% url 'register' %} target="_blank">
+        <a href={% url "accounts:register"%} target="_blank">
           <i class="zmdi zmdi-account-circle"></i> <span>Registration</span>
         </a>
       </li>
 
       <li class="sidebar-header">LABELS</li>
-      <li><a href={% static "javaScript:void();" %} ><i class="zmdi zmdi-coffee text-danger"></i> <span>Important</span></a></li>
-      <li><a href={% static "javaScript:void();" %} ><i class="zmdi zmdi-chart-donut text-success"></i> <span>Warning</span></a></li>
-      <li><a href={% static "javaScript:void();" %} ><i class="zmdi zmdi-share text-info"></i> <span>Information</span></a></li>
+      <li><a href="javaScript:void();"><i class="zmdi zmdi-coffee text-danger"></i> <span>Messages</span></a></li>
+      <li><a href="javaScript:void();"><i class="zmdi zmdi-chart-donut text-success"></i> <span>mails</span></a></li>
+      <li><a href="javaScript:void();"><i class="zmdi zmdi-share text-info"></i> <span>Information</span></a></li>
 
     </ul>
 
@@ -221,9 +226,8 @@
 		 <div class="card-header">Site Traffic
 		   <div class="card-action">
 			 <div class="dropdown">
-			 <a href={% static "javascript:void();" %}>class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
-			  <i class="icon-options"></i>
-			 </a>
+			 <a href={% static "javascript:void();" %} class="dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown">
+			  <i class="icon-options"></i></a>
 				<div class="dropdown-menu dropdown-menu-right">
 				<a class="dropdown-item" href={% static "javascript:void();" %}>Action</a>
 				<a class="dropdown-item" href={% static "javascript:void();" %}>Another action</a>

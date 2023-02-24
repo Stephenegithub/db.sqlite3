@@ -68,17 +68,17 @@
 			  </div>
 			 </div>
 			 <div class="form-group col-6 text-right">
-			  <a href={% url "reset" %}>Reset Password</a>
+			  <a href={% url "accounts:reset" %}>Reset Password</a>
 			 </div>
 			</div>
-			 <button type="button" class="btn btn-light btn-block">Sign In</button>
+			 <button type="button" class="btn btn-light btn-block"><a href={% url  "accounts:index" %} >Sign In </button>
 			 <div class="form-row mt-4">
 			</div>
 			 </form>
 		   </div>
 		  </div>
 		  <div class="card-footer text-center py-3">
-		    <p class="text-warning mb-0">Do not have an account? <a href={% url  "register" %} > Sign Up here</a></p>
+		    <p class="text-warning mb-0">Do not have an account? <a href={% url  "accounts:register" %} > Sign Up here</a></p>
 		  </div>
 	     </div>
 

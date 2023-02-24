@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'dashboard',
     'inventory',
+    'widget_tweaks',
     'finance',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

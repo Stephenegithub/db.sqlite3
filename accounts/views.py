@@ -1,44 +1,20 @@
 from django.contrib.auth import authenticate
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
-# Create your views here.
-from accounts.forms import LoginForm, SignupForm
-
-
-def register(request):
-    msg = None
-    if request.method == "POST":
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            msg = 'user created'
-            return redirect('login')
-        else:
-            msg = 'form is not valid'
-    else:
-        form = SignupForm()
-    return render(request, 'register.html', {'form': form, 'msg': msg})
+from accounts.forms import SignUpForm
 
 
-def login(request):
-    form = LoginForm(request.POST or None)
-    msg = None
-    if request.method == "POST" and form.is_valid():
-        if form.is_valid():
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password')
-            user = authenticate(email=email, password=password)
-            if user is not None and user.is_Admin:
-                login(request, user)
-                return redirect('admin')
-            elif user is not None and user.is_Customer:
-                login(request, user)
-                return render('customer')
-            else:
-                msg = "Invalid Credentials"
-        else:
-            msg = "Error validating form"
-    return render(request, 'login.html', {'form': form, 'msg': msg})
+class UserCreateView(SuccessMessageMixin, CreateView):
+    template_name = "register.html"
+    form_class = SignUpForm
+    model = User
+    success_message = "You've registered successfully"
+    success_url = reverse_lazy('index')
 
 
 def reset(request):
@@ -49,9 +25,21 @@ def calendar(request):
     return render(request, 'calendar.html')
 
 
+def login(request):
+    return render(request, 'login.html')
+
+
 def customer(request):
     return render(request, 'customer.html')
 
 
 def index(request):
     return render(request, 'index.html')
+
+
+def icons(request):
+    return render(request, 'icons.html')
+
+
+def profile(request):
+    return render(request, 'profile.html')
