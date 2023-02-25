@@ -1,4 +1,3 @@
-"""
 import pathlib
 from wsgiref.util import FileWrapper
 from mimetypes import guess_type
@@ -7,11 +6,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 
-
 # Create your views here.
 from products.models import Product
 from .forms import OrderForm
 from .models import Order
+
 
 @login_required
 def my_orders_view(request):
@@ -33,8 +32,8 @@ def order_checkout_view(request):
 
     # if not product.has_inventory():
     #     return redirect("/no-inventory")
-    user = request.user # AnonUser
-    order_id = request.session.get("order_id") # cart
+    user = request.user  # AnonUser
+    order_id = request.session.get("order_id")  # cart
     order_obj = None
     new_creation = False
     try:
@@ -58,7 +57,10 @@ def order_checkout_view(request):
         del request.session['order_id']
         request.session['checkout_success_order_id'] = order_obj.id
         return redirect("/success")
-    return render(request, 'orders/checkout.html', {"form": form, "object": order_obj, "is_digital": product.is_digital})
+    # changes shud be made
+    return render(request, 'index.html',
+                  {"form": form, "object": order_obj, "is_digital": product.is_digital})
+
 
 @login_required
 def download_order(request, order_id=None, *args, **kwargs):
@@ -76,10 +78,10 @@ def download_order(request, order_id=None, *args, **kwargs):
     if not product_obj.media:
         return redirect("/orders")
     media = product_obj.media
-    product_path = media.path # /abc/adsf/media/csadsf/adsf.csv
-    path = pathlib.Path(product_path) # os.path
+    product_path = media.path  # /abc/adsf/media/csadsf/adsf.csv
+    path = pathlib.Path(product_path)  # os.path
     pk = product_obj.pk
-    ext = path.suffix # .csv, .png, .mov
+    ext = path.suffix  # .csv, .png, .mov
     fname = f"my-cool-product-{order_id}-{pk}{ext}"
     if not path.exists():
         raise Http404
@@ -93,4 +95,3 @@ def download_order(request, order_id=None, *args, **kwargs):
         response['Content-Disposition'] = f"attachment;filename={fname}"
         response['X-SendFile'] = f"{fname}"
         return response
-"""

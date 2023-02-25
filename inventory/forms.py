@@ -1,6 +1,4 @@
-"""
 from django import forms
-
 from .models import Order
 
 
@@ -42,4 +40,3 @@ class OrderForm(forms.ModelForm):
                     self.product.requires_shipping and shipping_addr == None):
                 self.add_error("shipping_address", "This product requires a shipping address.")
         return cleaned_data
-"""

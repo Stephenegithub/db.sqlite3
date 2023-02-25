@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.contrib import staticfiles
 from django.template.context_processors import static
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'finance',
     'crispy_forms',
+    'products',
 ]
 
 MIDDLEWARE = [
@@ -60,8 +62,7 @@ ROOT_URLCONF = 'smartchickapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,11 +123,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+# STATIC_URL = '/static/'
+#
+# STATICFILES_DIR = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
 STATIC_URL = '/static/'
 
-STATICFILES_DIR = (
-    os.path.join(BASE_DIR, 'static'),
-)
+STATICFILES_DIRS = [
+    BASE_DIR / "staticfiles"  # os.path.join(str(BASE_DIR), "staticfiles")
+]
+
+STATIC_ROOT = BASE_DIR / "cdn_test" / "static"  # AWS S3 + Cloudfront, Google Cloud Storage, django-storages
+
+MEDIA_URL = "/media/"
+# any file field upload by default
+MEDIA_ROOT = BASE_DIR / "cdn_test" / "media"
+
+PROTECTED_MEDIA = BASE_DIR / "cdn_test" / "protected"
+
+if DEBUG:
+    STATIC_ROOT.mkdir(parents=True, exist_ok=True)
+    MEDIA_ROOT.mkdir(parents=True, exist_ok=True)
+    PROTECTED_MEDIA.mkdir(parents=True, exist_ok=True)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

@@ -1,3 +1,4 @@
+"""
 from django.db import models
 
 from accounts.models import CustomUser
@@ -29,13 +30,14 @@ class CartProduct(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
-
-
 """
 from decimal import Decimal
+
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.db.models.signals import pre_save, post_save
+from django.db.models.signals import pre_save
+
+from accounts.models import CustomUser
 from products.models import Product
 
 # Create your models here.
@@ -52,7 +54,7 @@ ORDER_STATUS_CHOICES = (
 
 
 class Order(models.Model):
-    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(CustomUser, null=True, on_delete=models.SET_NULL)
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
     status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='created')
     subtotal = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
@@ -117,4 +119,3 @@ def order_pre_save(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(order_pre_save, sender=Order)
-"""
