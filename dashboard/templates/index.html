@@ -57,17 +57,17 @@
         </a>
       </li>
 
-{#      <li>#}
-{#        <a href={% url "forms.html"%}>#}
-{#          <i class="zmdi zmdi-format-list-bulleted"></i> <span>Forms</span>#}
-{#        </a>#}
-{#      </li>#}
+      <li>
+        <a href={% url "accounts:order"%}>
+          <i class="zmdi zmdi-format-list-bulleted"></i> <span>Orders</span>
+        </a>
+      </li>
 
-{#      <li>#}
-{#        <a href={% url "tables.html"%}>#}
-{#          <i class="zmdi zmdi-grid"></i> <span>Tables</span>#}
-{#        </a>#}
-{#      </li>#}
+      <li>
+        <a href={% url "accounts:product"%}>
+          <i class="zmdi zmdi-grid"></i> <span>Products</span>
+        </a>
+      </li>
 
       <li>
         <a href={% url "accounts:calendar"%}>
@@ -436,6 +436,7 @@
   <script src={% static "assets/plugins/Chart.js/Chart.min.js" %}></script>
 
   <!-- Index js -->
-  <script src={% static "assets/js/index.js" %}></script>
-</body>
+  <script src={% static "assets/js/index.js" %}></scrip>
+  </body>
+
 </html>

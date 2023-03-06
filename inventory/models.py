@@ -76,9 +76,9 @@ class Order(models.Model):
     def is_downloadable(self):
         if not self.product:
             return False
-        if self.product.is_digital:
-            return True
-        return False
+        # if self.product.is_digital:
+        #     return True
+        # return False
 
     def mark_paid(self, custom_amount=None, save=False):
         paid_amount = self.total

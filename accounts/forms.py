@@ -1,10 +1,26 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model, logout
 from django.forms import forms
 from django import forms
 
 CustomUser = get_user_model()
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        widget= forms.TextInput(
+            attrs={
+                "class": "form-control"
+            }
+        )
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control"
+            }
+        )
+    )
 
 
 class SignUpForm(UserCreationForm):

@@ -1,6 +1,5 @@
-from django.contrib.auth import login
 from django.urls import path
-from .views import customer, index, reset, calendar, UserCreateView, login, icons, profile
+from .views import customer, index, reset, calendar, UserCreateView, login, icons, profile, product, order
 
 app_name = "accounts"
 
@@ -13,4 +12,6 @@ urlpatterns = [
     path('profile', profile, name='profile'),
     path('customer', customer, name='customer'),
     path('index', index, name='index'),
+    path('products', product, name='product'),
+    path('orders', order, name='order'),
 ]
