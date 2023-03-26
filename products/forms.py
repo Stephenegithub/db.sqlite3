@@ -1,4 +1,3 @@
-
 from django import forms
 
 from .models import Product
@@ -16,7 +15,7 @@ class ProductModelForm(forms.ModelForm):
             'title',
             'content',
             'image',
-            # 'media',
+            'media',
         ]
         exclude = [
             'price'

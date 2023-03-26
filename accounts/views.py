@@ -25,13 +25,16 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None and user.is_admin:
                 login(request, CustomUser)
-                return redirect('admin')
+                return redirect('Admin')
             elif user is not None and user.is_customer:
                 login(request, CustomUser)
-                return redirect('customer')
+                return redirect('Customer')
             elif user is not None and user.is_employee:
                 login(request, CustomUser)
-                return redirect('employee')
+                return redirect('Packer')
+            elif user is not None and user.is_employee:
+                login(request, CustomUser)
+                return redirect('Driver')
             else:
                 msg = 'invalid credentials'
         else:

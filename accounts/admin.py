@@ -6,7 +6,6 @@ from .forms import UserCreationForm
 
 # Register your models here.
 
-
 admin.site.unregister(Group)
 admin.site.site_header = "Smart Chick Farm Admin"
 admin.site.site_name = "Smart Chick Farm Admin"

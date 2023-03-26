@@ -1,9 +1,6 @@
 """
 from django.db import models
-
 from accounts.models import CustomUser
-
-
 class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
@@ -11,21 +8,15 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return self.name
-
-
 class Cart(models.Model):
     customer = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product, through='CartProduct')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     def __str__(self):
         return 'Cart for customer {}'.format(self.customer)
-
-
 class CartProduct(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -97,7 +88,7 @@ class Order(models.Model):
         if not self.product:
             return {}
         subtotal = self.product.price  # 29.99 -> 2999
-        tax_rate = Decimal(0.12)  # 0.12 -> 12 
+        tax_rate = Decimal(0.12)  # 0.12 -> 12
         tax_total = subtotal * tax_rate  # 1.29 1.2900000003
         tax_total = Decimal("%.2f" % (tax_total))
         total = subtotal + tax_total

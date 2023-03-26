@@ -1,13 +1,16 @@
 from django.contrib import admin
-from django.urls import path, include, reverse_lazy
-from django.views.generic import TemplateView
-
-from dashboard import views
+from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
-    # path('', required_access (function=TemplateView.as_view(template_name="index.html"),
-    #                          login_url=reverse_lazy('accounts:login'), user_type="CM"), name="index")
-
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+
+urlpatterns += staticfiles_urlpatterns()

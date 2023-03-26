@@ -1,4 +1,3 @@
-"""
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.core.exceptions import ImproperlyConfigured
@@ -10,6 +9,4 @@ if PROTECTED_MEDIA == None:
 
 # django-storages
 class ProtectedStorage(FileSystemStorage):
-    location = PROTECTED_MEDIA
-    # MEDIA_ROOT
-"""
+    location = PROTECTED_MEDIA  # MEDIA_ROOT
