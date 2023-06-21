@@ -1,0 +1,58 @@
+{% extends 'inventory/layouts/base.html' %}
+
+{% block content %}
+  <h1>Order Management</h1>
+
+  <h2>Create an Order</h2>
+  <form action="{% url 'create_order' %}" method="POST">
+    {% csrf_token %}
+    <label for="user">User:</label>
+    <select name="user" id="user">
+      <option value="">-- Select User --</option>
+      <!-- Retrieve and display user options dynamically -->
+      {% for user in users %}
+        <option value="{{ user.id }}">{{ user.username }}</option>
+      {% endfor %}
+    </select>
+    <br><br>
+    <label for="product">Product:</label>
+    <select name="product" id="product">
+      <option value="">-- Select Product --</option>
+      <!-- Retrieve and display product options dynamically -->
+      {% for product in products %}
+        <option value="{{ product.id }}">{{ product.name }}</option>
+      {% endfor %}
+    </select>
+    <br><br>
+    <button type="submit" class="btn btn-primary">Create Order</button>
+  </form>
+
+  <hr>
+
+  <h2>Order List</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>User</th>
+        <th>Product</th>
+        <th>Status</th>
+        <th>Total</th>
+        <th>Paid</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Retrieve and display orders dynamically -->
+      {% for order in orders %}
+        <tr>
+          <td>{{ order.id }}</td>
+          <td>{{ order.user.username }}</td>
+          <td>{{ order.product.name }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.total }}</td>
+          <td>{{ order.paid }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

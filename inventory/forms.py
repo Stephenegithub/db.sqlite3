@@ -40,3 +40,12 @@ class OrderForm(forms.ModelForm):
                     self.product.requires_shipping and shipping_addr == None):
                 self.add_error("shipping_address", "This product requires a shipping address.")
         return cleaned_data
+
+
+class AddToCartForm(forms.Form):
+    product = forms.CharField(max_length=100)
+    quantity = forms.IntegerField(min_value=1)
+    price = forms.DecimalField(max_digits=10, decimal_places=2)
+    shipping_address = forms.CharField(widget=forms.Textarea)
+
+

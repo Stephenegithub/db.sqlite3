@@ -50,7 +50,7 @@ class LoginForm(forms.Form):
 
     def clean_username(self):
         username = self.cleaned_data.get("username")
-        qs = CustomUser.objects.filter(username__iexact=username)  # thisIsMyUsername == thisismyusername
+        qs = CustomUser.objects.filter(username__iexact=username)  # thisIsMyUsername == this is my username
         if not qs.exists():
             raise forms.ValidationError("This is an invalid user.")
         if qs.count() != 1:

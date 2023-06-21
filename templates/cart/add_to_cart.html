@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<head>
+  <title>Add to Cart Form</title>
+  <style>
+    /* Add some basic styles for the form */
+    form {
+      display: inline-block;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: darkslategrey;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: blue;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      margin-bottom: 10px;
+      padding: 8px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+{% extends 'cart/layouts/base.html' %}
+
+{% block content %}
+<body>
+  <h1>Add to Cart Form</h1>
+  <form method="post" action="{% url 'inventory:add_to_cart' %}">
+    {% csrf_token %}
+    <label for="product_name">Product Name:</label>
+    <input type="text" name="product_name" id="product_name" required>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" name="quantity" id="quantity" min="1" required>
+
+    <label for="price">Price:</label>
+    <input type="number" name="price" id="price" step="0.01" required>
+
+    <label for="shipping_address">Shipping Address:</label>
+    <textarea name="shipping_address" id="shipping_address" required></textarea>
+
+    <input type="submit" value="Add to Cart">
+  </form>
+
+{#  <form method="post" action="{% url 'payment:make_payment' %}">#}
+    {% csrf_token %}
+    <label for="payment_amount">Make Payment:</label>
+    <input type="number" name="payment_amount" id="payment_amount" step="0.01" placeholder="make payments" required>
+    <input type="submit" value="Make Payment">
+  </form>
+</body>
+{% endblock %}

@@ -33,3 +33,4 @@ class AccountAdmin(UserAdmin):
 admin.site.register(CustomUser, AccountAdmin)
 admin.site.register(Feedback)
 admin.site.register(Message)
+

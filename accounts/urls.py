@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import customer, index, reset, calendar, UserCreateView, login, icons, profile, product, order
+from .views import customer, reset, calendar, UserCreateView, login, icons, profile
 
 app_name = "accounts"
 
@@ -11,7 +11,8 @@ urlpatterns = [
     path('icons', icons, name='icons'),
     path('profile', profile, name='profile'),
     path('customer', customer, name='customer'),
-    path('index', index, name='index'),
-    path('products', product, name='product'),
-    path('orders', order, name='order'),
+
+
+
+
 ]
