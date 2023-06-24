@@ -1,14 +1,73 @@
-# product_list.html
-{% for product in products %}
-    <h3>{{ product.name }}</h3>
-    <p>Price: {{ product.price }}</p>
-    {% if product.inventory > 0 %}
-        <a href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
-    {% else %}
-        <p>Out of Stock</p>
-    {% endif %}
-{% endfor %}
+{#{% extends 'inventory/layouts/base.html' %}#}
+{##}
+{#{% block title %}List of products{% endblock title %}#}
+{##}
+{#{% block content %}#}
+{#    <h1 class="text-center mb-4">List of Available Stock</h1>#}
+{#    {% for product in products %}#}
+{#        <h3>{{ product.name }}</h3>#}
+{#        <p>Price: {{ product.price }}</p>#}
+{#        {% if product.inventory > 0 %}#}
+{#            <p>Available Quantity: {{ product.inventory }}</p>#}
+{#        {% else %}#}
+{#            <p>Out of Stock</p>#}
+{#        {% endif %}#}
+{#    {% endfor %}#}
+{#{% endblock %}#}
 
-# out_of_stock.html
-<h3>Out of Stock</h3>
-<p>This product is currently out of stock.</p>
+
+<!-- product_list.html -->
+{#{% extends 'inventory/layouts/base.html' %}#}
+{##}
+{#{% block content %}#}
+{#    <h1>Inventory Management</h1>#}
+{##}
+{#    <h2>Categories:</h2>#}
+{#    <ul>#}
+{#        {% for category_value, category_label in categories %}#}
+{#            <li>{{ category_label }}</li>#}
+{#        {% endfor %}#}
+{#    </ul>#}
+{##}
+{#    <h2>Products:</h2>#}
+{#    <ul>#}
+{#        {% for product in products %}#}
+{#            <li>{{ product.name }} - {{ product.category }}</li>#}
+{#        {% endfor %}#}
+{#    </ul>#}
+{#{% endblock %}#}
+
+{% extends 'inventory/layouts/base.html' %}
+
+{% block content %}
+    <h1>Inventory Management</h1>
+
+    <h2>Categories:</h2>
+    <ul>
+        {% for category in categories %}
+            <li>{{ category.1 }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Products:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>In Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.inventory }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+

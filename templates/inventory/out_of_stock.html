@@ -1,3 +1,8 @@
-<h3>Out of Stock</h3>
-<p>This product is currently out of stock.</p>
-<a href="{% url 'product_list' %}">Back to Product List</a>
+{% extends 'inventory/layouts/base.html' %}
+
+{% block title %}Out of Stock{% endblock title %}
+
+{% block content %}
+    <h1 class="text-center mb-4">Out of Stock</h1>
+    <p>This product is currently out of stock.</p>
+{% endblock %}
