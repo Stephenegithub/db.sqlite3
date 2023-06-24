@@ -19,7 +19,7 @@
                             <p class="card-text text-primary mb-1"><strong>{{ product.price }}</strong></p>
                             <p class="card-text text-primary mb-1"><strong>In stock: {{ product.quantity }}</strong></p>
                             <div style="padding: 5px;">
-                                <a href="{% url 'inventory:add_to_cart' product.id %}" class="btn btn-primary btn-sm btn-block">Add to Cart</a>
+                                <a href="{% url '#' product.id %}" class="btn btn-primary btn-sm btn-block">Add to Cart</a>
                             </div>
                             <div>
                                 <a href="{% url 'product_detail' product.id %}" class="btn btn-primary btn-sm btn-block">View Product</a>

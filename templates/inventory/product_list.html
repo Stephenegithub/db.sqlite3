@@ -1,0 +1,14 @@
+# product_list.html
+{% for product in products %}
+    <h3>{{ product.name }}</h3>
+    <p>Price: {{ product.price }}</p>
+    {% if product.inventory > 0 %}
+        <a href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+    {% else %}
+        <p>Out of Stock</p>
+    {% endif %}
+{% endfor %}
+
+# out_of_stock.html
+<h3>Out of Stock</h3>
+<p>This product is currently out of stock.</p>
