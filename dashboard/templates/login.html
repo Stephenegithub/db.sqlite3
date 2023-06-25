@@ -10,81 +10,111 @@
   <meta name="author" content=""/>
   <title>Smart Chick Registration </title>
   <!-- loader-->
-  <link href={% static "assets/css/pace.min.css" %} rel="stylesheet"/>
-  <script src={% static "assets/js/pace.min.js" %} ></script>
+  <link href="{% static 'assets/css/pace.min.css' %}" rel="stylesheet"/>
+  <script src="{% static 'assets/js/pace.min.js' %}" ></script>
   <!--favicon-->
-  <link rel= "icon" href={% static "assets/images/favicon.ico" %} type="image/x-icon">
+  <link rel="icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
   <!-- Bootstrap core CSS-->
-  <link href={% static "assets/css/bootstrap.min.css" %} rel="stylesheet"/>
+  <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet"/>
   <!-- animate CSS-->
-  <link href={% static "assets/css/animate.css" %} rel="stylesheet" type="text/css"/>
+  <link href="{% static 'assets/css/animate.css' %}" rel="stylesheet" type="text/css"/>
   <!-- Icons CSS-->
-  <link href={% static "assets/css/icons.css" %} rel="stylesheet" type="text/css"/>
+  <link href="{% static 'assets/css/icons.css' %}" rel="stylesheet" type="text/css"/>
   <!-- Custom Style-->
-  <link href={% static "assets/css/app-style.css" %} rel="stylesheet"/>
-
-
+  <link href="{% static 'assets/css/app-style.css' %}" rel="stylesheet"/>
 </head>
 
 <body class="bg-theme bg-theme1">
+    <div id="wrapper">
+        <div class="card card-authentication1 mx-auto my-5">
+            <div class="card-body">
+                <div class="card-content p-2">
+                    <div class="text-center">
+                        <img src="{% static 'assets/images/logo-icon.png' %}" class="logo-icon" alt="logo icon">
+                    </div>
+                    <div class="card-title text-uppercase text-center py-3">Sign In</div>
+                    <form method="POST" id="login-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ form.email|as_crispy_field }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.password|as_crispy_field }}
+                        </div>
+                        <div class="form-group">
+                            <a href="#" class="float-right">Forgot password?</a>
+                            <label class="float-left custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" checked="">
+                                <div class="custom-control-label"> Remember </div>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Login </button>
+                        </div>
+                        <p class="text-warning mb-0">Do not have an account?
+                            <a href="{% url 'accounts:register' %}">Sign Up here</a>
+                        </p>
+                        <br><br>
+                    </form>
+                </div>
+            </div>
+            <div class="card-footer text-center py-3"></div>
+        </div>
+    </div>
 
-<!-- start loader -->
-   <div id="pageloader-overlay" class="visible incoming"><div class="loader-wrapper-outer"><div class="loader-wrapper-inner" ><div class="loader"></div></div></div></div>
-   <!-- end loader -->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#login-form').on('submit', function(e) {
+                e.preventDefault(); // Prevent the default form submission
 
-<!-- Start wrapper-->
- <div id="wrapper">
+                var formData = $(this).serialize(); // Serialize the form data
 
- <div class="loader-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
-	<div class="card card-authentication1 mx-auto my-5">
-		<div class="card-body">
-		 <div class="card-content p-2">
-		 	<div class="text-center">
-		 		 <img src= {% static "assets/images/logo-icon.png"  %} class="logo-icon" alt="logo icon">
-		 	</div>
-		  <div class="card-title text-uppercase text-center py-3">Sign In</div>
-		     <form method="POST">
+                $.ajax({
+                    url: "{% url 'accounts:login' %}",
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        // Redirect the user based on the user_type
+                        var user_type = response.user_type;
+                        switch (user_type) {
+                            case "IV":
+                                window.location.href = "#";
+                                break;
+                            case "CM":
+                                window.location.href = "#";
+                                break;
+                            case "DR":
+                                window.location.href = "#";
+                                break;
+                            case "SP":
+                                window.location.href ="#";
+                                break;
+                            case "FM":
+                                window.location.href = "#";
+                                break;
+                            default:
+                                // Redirect to a default page or show an error message
+                                window.location.href = "inventory";
+                                break;
+                        }
+                    },
+                    error: function() {
+                        alert("Error occurred during login."); // Show an error message if the login fails
+                    }
+                });
+            });
+        });
+    </script>
 
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
 
-			  <div class="form-group">
-					 <input name="email" class="form-control" placeholder="Email" type="text">
-				  </div> <!-- form-group// -->
-				  <div class="form-group">
-					<input name="password" class="form-control" placeholder="Password" type="password">
-				  </div> <!-- form-group// -->
+    <!-- sidebar-menu js -->
+    <script src="{% static 'assets/js/sidebar-menu.js' %}"></script>
 
-				  <div class="form-group">
-                      <a href="#" class="float-right">Forgot password?</a>
-					<label class="float-left custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" checked=""> <div class="custom-control-label"> Remember </div> </label>
-				  </div> <!-- form-group form-check .// -->
-				  <div class="form-group">
-					  <button type="submit" class="btn btn-primary btn-block"> Login  </button>
-				  </div> <!-- form-group// -->
-			  <p class="text-warning mb-0">Do not have an account? <a href={% url "accounts:register"%}> Sign Up here</a></p>
-			 <br><br>
-			</form>
-		   </div>
-		  </div>
-		  <div class="card-footer text-center py-3">
-		  </div>
-	     </div>
-
-     <!--Start Back To Top Button-->
-    <a href={% static "javaScript:void();"%} class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-    <!--End Back To Top Button-->
-
-	</div><!--wrapper-->
-
-   <!-- Bootstrap core JavaScript-->
-  <script src={% static "assets/js/jquery.min.js" %}></script>
-  <script src={% static "assets/js/popper.min.js" %}></script>
-  <script src={% static "assets/js/bootstrap.min.js" %}></script>
-
-  <!-- sidebar-menu js -->
-  <script src={% static "assets/js/sidebar-menu.js" %}></script>
-
-  <!-- Custom scripts -->
-  <script src={% static "assets/js/app-script.js" %}></script>
-
+    <!-- Custom scripts -->
+    <script src="{% static 'assets/js/app-script.js' %}"></script>
 </body>
 </html>
+
