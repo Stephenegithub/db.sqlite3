@@ -1,5 +1,140 @@
+{#{% load static %}#}
+{#{% load crispy_forms_tags %}#}
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#  <meta charset="utf-8"/>#}
+{#  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>#}
+{#  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>#}
+{#  <meta name="description" content=""/>#}
+{#  <meta name="author" content=""/>#}
+{#  <title>Smart Chick Registration</title>#}
+{#  <!-- loader-->#}
+{#  <link href="{% static 'assets/css/pace.min.css' %}" rel="stylesheet"/>#}
+{#  <script src="{% static 'assets/js/pace.min.js' %}"></script>#}
+{#  <!--favicon-->#}
+{#  <link rel="icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">#}
+{#  <!-- Bootstrap core CSS-->#}
+{#  <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet"/>#}
+{#  <!-- animate CSS-->#}
+{#  <link href="{% static 'assets/css/animate.css' %}" rel="stylesheet" type="text/css"/>#}
+{#  <!-- Icons CSS-->#}
+{#  <link href="{% static 'assets/css/icons.css' %}" rel="stylesheet" type="text/css"/>#}
+{#  <!-- Custom Style-->#}
+{#  <link href="{% static 'assets/css/app-style.css' %}" rel="stylesheet"/>#}
+{#</head>#}
+{##}
+{#<body class="bg-theme bg-theme1">#}
+{#    <div id="wrapper">#}
+{#        <div class="card card-authentication1 mx-auto my-5">#}
+{#            <div class="card-body">#}
+{#                <div class="card-content p-2">#}
+{#                    <div class="text-center">#}
+{#                        <img src="{% static 'assets/images/logo-icon.png' %}" class="logo-icon" alt="logo icon">#}
+{#                    </div>#}
+{#                    <div class="card-title text-uppercase text-center py-3">Sign In</div>#}
+{#                    <form id="login-form" method="post" action="{% url 'accounts:login' %}">#}
+{#                        {% csrf_token %}#}
+{#                        <div class="form-group">#}
+{#                            <label for="exampleInputUsername" class="sr-only">Username</label>#}
+{#                            <div class="position-relative has-icon-right">#}
+{#                                <input type="text" id="exampleInputUsername" name="username" class="form-control input-shadow" placeholder="Enter Username">#}
+{#                                <div class="form-control-position">#}
+{#                                    <i class="icon-user"></i>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="form-group">#}
+{#                            <label for="exampleInputPassword" class="sr-only">Password</label>#}
+{#                            <div class="position-relative has-icon-right">#}
+{#                                <input type="password" id="exampleInputPassword" name="password" class="form-control input-shadow" placeholder="Enter Password">#}
+{#                                <div class="form-control-position">#}
+{#                                    <i class="icon-lock"></i>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="form-row">#}
+{#                            <div class="form-group col-6">#}
+{#                                <div class="icheck-material-white">#}
+{#                                    <input type="checkbox" id="user-checkbox" name="remember" checked/>#}
+{#                                    <label for="user-checkbox">Remember me</label>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="form-group col-6 text-right">#}
+{#                                <a href="#">Reset Password</a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <button type="submit" class="btn btn-light btn-block">Sign In</button>#}
+{#                    </form>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="card-footer text-center py-3">#}
+{#                <p class="text-warning mb-0">Do not have an account? <a href="{% url 'accounts:register' %}">Sign Up here</a></p>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <script src="{% static 'assets/js/jquery.min.js' %}"></script>#}
+{#    <script>#}
+{#        $(document).ready(function() {#}
+{#            $('#login-form').on('submit', function(e) {#}
+{#                e.preventDefault(); // Prevent the default form submission#}
+{##}
+{#                var formData = $(this).serialize(); // Serialize the form data#}
+{##}
+{#                $.ajax({#}
+{#                    url: $(this).attr('action'),#}
+{#                    type: $(this).attr('method'),#}
+{#                    data: formData,#}
+{#                    success: function(response) {#}
+{#                        // Redirect the user based on the user_type#}
+{#                        var user_type = response.user;#}
+{#                        switch (user_type) {#}
+{#                            case "IV":#}
+{#                                window.location.href = "#";#}
+{#                                break;#}
+{#                            case "CM":#}
+{#                                window.location.href = "#";#}
+{#                                break;#}
+{#                            case "DR":#}
+{#                                window.location.href = "#";#}
+{#                                break;#}
+{#                            case "SP":#}
+{#                                window.location.href = "#";#}
+{#                                break;#}
+{#                            case "FM":#}
+{#                                window.location.href = "#";#}
+{#                                break;#}
+{#                            default:#}
+{#                                // Redirect to a default page or show an error message#}
+{#                                window.location.href = "";#}
+{#                                break;#}
+{#                        }#}
+{#                    },#}
+{#                    error: function() {#}
+{#                        alert("Error occurred during login."); // Show an error message if the login fails#}
+{#                    }#}
+{#                });#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+{##}
+{#    <!-- Bootstrap core JavaScript-->#}
+{#    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>#}
+{##}
+{#    <!-- sidebar-menu js -->#}
+{#    <script src="{% static 'assets/js/sidebar-menu.js' %}"></script>#}
+{##}
+{#    <!-- Custom scripts -->#}
+{#    <script src="{% static 'assets/js/app-script.js' %}"></script>#}
+{#</body>#}
+{#</html>#}
+{##}
+
 {% load static %}
 {% load crispy_forms_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +143,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
   <meta name="description" content=""/>
   <meta name="author" content=""/>
-  <title>Smart Chick Registration </title>
+  <title>Smart Chick Registration</title>
   <!-- loader-->
   <link href="{% static 'assets/css/pace.min.css' %}" rel="stylesheet"/>
-  <script src="{% static 'assets/js/pace.min.js' %}" ></script>
+  <script src="{% static 'assets/js/pace.min.js' %}"></script>
   <!--favicon-->
   <link rel="icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
   <!-- Bootstrap core CSS-->
@@ -33,50 +168,62 @@
                         <img src="{% static 'assets/images/logo-icon.png' %}" class="logo-icon" alt="logo icon">
                     </div>
                     <div class="card-title text-uppercase text-center py-3">Sign In</div>
-                    <form method="POST" id="login-form">
+                    <form id="login-form" method="post" action="{% url 'accounts:login' %}">
                         {% csrf_token %}
                         <div class="form-group">
-                            {{ form.email|as_crispy_field }}
+                            <label for="exampleInputUsername" class="sr-only">Username</label>
+                            <div class="position-relative has-icon-right">
+                                <input type="text" id="exampleInputUsername" name="username" class="form-control input-shadow" placeholder="Enter Username">
+                                <div class="form-control-position">
+                                    <i class="icon-user"></i>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
-                            {{ form.password|as_crispy_field }}
+                            <label for="exampleInputPassword" class="sr-only">Password</label>
+                            <div class="position-relative has-icon-right">
+                                <input type="password" id="exampleInputPassword" name="password" class="form-control input-shadow" placeholder="Enter Password">
+                                <div class="form-control-position">
+                                    <i class="icon-lock"></i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <a href="#" class="float-right">Forgot password?</a>
-                            <label class="float-left custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" checked="">
-                                <div class="custom-control-label"> Remember </div>
-                            </label>
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <div class="icheck-material-white">
+                                    <input type="checkbox" id="user-checkbox" name="remember" checked/>
+                                    <label for="user-checkbox">Remember me</label>
+                                </div>
+                            </div>
+                            <div class="form-group col-6 text-right">
+                                <a href="#">Reset Password</a>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block"> Login </button>
-                        </div>
-                        <p class="text-warning mb-0">Do not have an account?
-                            <a href="{% url 'accounts:register' %}">Sign Up here</a>
-                        </p>
-                        <br><br>
+                        <button type="submit" class="btn btn-light btn-block">Sign In</button>
                     </form>
                 </div>
             </div>
-            <div class="card-footer text-center py-3"></div>
+            <div class="card-footer text-center py-3">
+                <p class="text-warning mb-0">Do not have an account? <a href="{% url 'accounts:register' %}">Sign Up here</a></p>
+            </div>
         </div>
     </div>
 
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
     <script>
         $(document).ready(function() {
-            $('#login-form').on('submit', function(e) {
+            $('#login').on('submit', function(e) {
                 e.preventDefault(); // Prevent the default form submission
 
                 var formData = $(this).serialize(); // Serialize the form data
 
                 $.ajax({
-                    url: "{% url 'accounts:login' %}",
-                    type: 'POST',
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
                     data: formData,
                     success: function(response) {
                         // Redirect the user based on the user_type
-                        var user_type = response.user_type;
+                        var user_type = response.user;
                         switch (user_type) {
                             case "IV":
                                 window.location.href = "#";
@@ -88,7 +235,7 @@
                                 window.location.href = "#";
                                 break;
                             case "SP":
-                                window.location.href ="#";
+                                window.location.href = "#";
                                 break;
                             case "FM":
                                 window.location.href = "#";
@@ -117,4 +264,3 @@
     <script src="{% static 'assets/js/app-script.js' %}"></script>
 </body>
 </html>
-

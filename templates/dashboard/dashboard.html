@@ -1,0 +1,27 @@
+{% extends 'dashboard/layouts/base.html' %}
+
+{% block content %}
+  <h1>Welcome to the Dashboard!</h1>
+  
+  {% if user.user_type == 'FM' %}
+    <p>Hello, Finance Manager!</p>
+    <!-- Add finance manager specific content here -->
+  {% elif user.user_type == 'DR' %}
+    <p>Hello, Driver!</p>
+    <!-- Add driver specific content here -->
+  {% elif user.user_type == 'SP' %}
+    <p>Hello, Supplier!</p>
+    <!-- Add supplier specific content here -->
+  {% elif user.user_type == 'IV' %}
+    <p>Hello, Inventory Manager!</p>
+    <!-- Add inventory manager specific content here -->
+  {% elif user.user_type == 'CM' %}
+    <p>Hello, Customer!</p>
+    <!-- Add customer specific content here -->
+  {% elif user.user_type == 'PC' %}
+    <p>Hello, Packer!</p>
+    <!-- Add packer specific content here -->
+  {% else %}
+    <p>Invalid user type</p>
+  {% endif %}
+{% endblock %}
