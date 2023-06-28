@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import CustomUser, Message, Feedback
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
+
 from .forms import UserCreationForm
+from .models import CustomUser, Message
 
 # Register your models here.
 
@@ -31,6 +32,5 @@ class AccountAdmin(UserAdmin):
 
 
 admin.site.register(CustomUser, AccountAdmin)
-admin.site.register(Feedback)
 admin.site.register(Message)
 

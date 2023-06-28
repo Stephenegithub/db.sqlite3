@@ -10,19 +10,24 @@
    <ul class="sidebar-menu do-nicescrol">
       <li class="sidebar-header">MAIN NAVIGATION</li>
       <li>
-        <a href={% url "inventory:product-view" %}>
-          <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
+        <a href={% url "accounts:home-view" %}>
+          <i class="zmdi zmdi-view-dashboard"></i> <span>HOME</span>
         </a>
       </li>
       <li>
-        <a href={% url "accounts:profile"%}>
-          <i class="zmdi zmdi-format-list-bulleted"></i> <span>Profiles</span>
+        <a href="#">
+          <i class="zmdi zmdi-format-list-bulleted"></i> <span>Orders</span>
         </a>
       </li>
 
       <li>
-        <a href={% url "inventory:product-view" %}>
-          <i class="zmdi zmdi-grid"></i> <span>Products</span>
+        <a href="#">
+          <i class="zmdi zmdi-grid"></i> <span>Pending Reviews</span>
+        </a>
+      </li>
+       <li>
+        <a href="#">
+          <i class="zmdi zmdi-grid"></i> <span>Show Room</span>
         </a>
       </li>
       <li class="sidebar-header">LABELS</li>

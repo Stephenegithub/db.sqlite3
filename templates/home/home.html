@@ -1,10 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'home/layouts/base.html' %}
 
-</body>
-</html>
+{% block title %}View Products{% endblock title %}
+
+{% block content %}
+    <style>
+        .blink {
+            animation: blink-animation 5s steps(5, start) infinite;
+            -webkit-animation: blink-animation 5s steps(5, start) infinite;
+        }
+
+        @keyframes blink-animation {
+            to {
+                visibility: hidden;
+            }
+        }
+
+        @-webkit-keyframes blink-animation {
+            to {
+                visibility: hidden;
+            }
+        }
+
+        .rounded-button {
+            border-radius: 25px;
+        }
+
+        .login-register-button {
+            margin-left: -4px;
+        }
+    </style>
+
+    <h1 style="white-space: nowrap; overflow: hidden; text-indent: 100%; animation: marquee 10s linear infinite;">
+        Our Products
+    </h1>
+
+    <style>
+        @keyframes marquee {
+            0% { text-indent: 100%; }
+            100% { text-indent: -100%; }
+        }
+    </style>
+
+    <a href="{% url 'accounts:login' %}" class="btn btn-primary btn-lg hero-btn blink rounded-button login-register-button">Login/Register</a>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3">
+            {% for product in products %}
+                <div class="col-6 col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <a href="#">
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                        </a>
+                        <div class="card-body p-3">
+                            <h5 class="card-title mb-2">{{ product.name }}</h5>
+                            <p class="card-text text-primary mb-1"><strong>{{ product.price }}</strong></p>
+                            <p class="card-text text-primary mb-1"><strong>In stock: {{ product.quantity }}</strong></p>
+
+                            <div style="padding: 5px;">
+                                <a href="#" class="btn btn-primary btn-sm btn-block">Add to cart</a>
+                            </div>
+
+                            <div>
+                                <a href="#" class="btn btn-primary btn-sm btn-block">View product</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

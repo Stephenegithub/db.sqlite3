@@ -1,10 +1,6 @@
 from django.shortcuts import render, redirect
+
 from products.models import Product
-
-
-def product_list(request):
-    products = Product.objects.all()
-    return render(request, 'inventory/product_list.html', {'products': products})
 
 
 def add_to_cart(request, product_id):
@@ -21,4 +17,3 @@ def product_list(request):
     products = Product.objects.all()
     categories = Product.CATEGORY_CHOICES
     return render(request, 'inventory/product_list.html', {'products': products, 'categories': categories})
-

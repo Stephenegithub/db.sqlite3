@@ -9,17 +9,25 @@
   <meta name="author" content=""/>
   <title>Smart Chick Farm</title>
   <!-- loader-->
-    {% include 'accounts/styles.html' %}
+
+  {% include 'accounts/styles.html' %}
 </head>
-<body class="bg-theme bg-theme5">
+
+<body class="bg-theme bg-theme3">
 <!-- Start wrapper-->
   <div id="wrapper">
+    <div class="clearfix"></div>
+    <div class="content-wrapper">
+        <div class="container-fluid">
+  <!-- Layout wrapper -->
+  <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
       <!-- Menu -->
-        {% include 'home/includes/sidebar.html' %}
+        {% include 'inventory/includes/sidebar.html' %}
 
       <!-- Layout container -->
       <div class="layout-page">
-        {% include 'home/includes/navbar.html' %}
+        {% include 'inventory/includes/navbar.html' %}
 
         <!-- Content wrapper -->
         <div class="content-wrapper">
@@ -34,7 +42,7 @@
         <!-- Content wrapper -->
       </div>
       <!-- / Layout page -->
-
+    </div>
 
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
@@ -42,11 +50,11 @@
   <!-- / Layout wrapper -->
 
   {% include 'accounts/scripts.html' %}
-
+        </div>
         <!-- End container-fluid-->
 
-
-
+    </div>
+    </div>
 <!--End content-wrapper-->
 </body>
 
