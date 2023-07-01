@@ -1,80 +1,21 @@
+from django.contrib import messages
+from django.contrib.auth import logout, login, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView
 
+from accounts.models import *
+from inventory.models import Product, Cart
 from products.models import Product
 from shipping.models import Shipping
 from supply.models import SupplyTender
+from .forms import *
 from .forms import SignUpForm
-
-
-class UserCreateView(SuccessMessageMixin, CreateView):
-    template_name = "register.html"
-    form_class = SignUpForm
-    model = User
-    success_message = "You've registered successfully"
-    success_url = reverse_lazy('accounts:login')
-
-
-@require_http_methods(["GET", "POST"])
-def register(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "You've registered successfully")
-            return redirect('login')
-    else:
-        form = SignUpForm()
-
-    return render(request, 'register.html', {'form': form})
-
-
-#
-# @require_http_methods(["GET", "POST"])
-# def user_login(request):
-#     if request.method == 'POST':
-#         form = CustomerAuthenticationForm(request, data=request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password']
-#
-#             user = authenticate(request, username=username, password=password)
-#             if user is not None:
-#                 login(request, user)
-#                 return redirect('dashboard')
-#         else:
-#             messages.error(request, "Invalid username or password.")
-#     else:
-#         form = CustomerAuthenticationForm()
-#
-#     return render(request, 'login.html', {'form': form})
-#
-#
-# @login_required
-# def dashboard(request):
-#     user_type = request.user
-#
-#     if user_type == CustomUser.UserTypes.FINANCE:
-#         return render(request, 'finance/index.html')
-#     elif user_type == CustomUser.UserTypes.DRIVER:
-#         return render(request, 'driver/index.html')
-#     elif user_type == CustomUser.UserTypes.SUPPLIER:
-#         return render(request, 'suppliers/index.html')
-#     elif user_type == CustomUser.UserTypes.INVENTORY:
-#         return render(request, 'inventory/index.html')
-#     elif user_type == CustomUser.UserTypes.CUSTOMER:
-#         return render(request, 'customer/index.html')
-#     elif user_type == CustomUser.UserTypes.PACKERS:
-#         return render(request, 'packer/index.html')
-#
-#
-# def user_logout(request):
-#     logout(request)
-#     return redirect('login')
+from .models import CustomUser
 
 
 class HomeView(View):
@@ -93,7 +34,7 @@ def calendar(request):
 
 
 def customer(request):
-    return render(request, 'customer/index.html')
+    return render(request, 'customer/products.html')
 
 
 def icons(request):
@@ -104,26 +45,7 @@ def profile(request):
     return render(request, 'profile.html')
 
 
-from django.contrib import messages
-from django.contrib.auth import logout, login, update_session_auth_hash
-
-from django.views import View
-
-from django.urls import reverse_lazy
-from .forms import *
-
-from inventory.models import Product, Cart
-from django.contrib.auth.forms import PasswordChangeForm
-from accounts.models import *
-
-
 # Create your views here.
-def home(request):
-    return render(request, 'index.html')
-
-
-from django.contrib.auth.decorators import login_required
-from .models import CustomUser
 
 
 @login_required
@@ -143,7 +65,7 @@ def about_f(request):
 
 @login_required
 def about_sp(request):
-    return render(request, 'aboutus/about_us_service_provider.html')
+    return render(request, 'aboutus/about_us_dispatch.html')
 
 
 @login_required
@@ -156,12 +78,12 @@ def about_d(request):
     return render(request, 'aboutus/about_us_driver.html')
 
 
-# class UserCreateView(SuccessMessageMixin, CreateView):
-#     template_name = "accounts/register.html"
-#     form_class = RegistrationForm
-#     model = User
-#     success_message = "You've registered successfully"
-#     success_url = reverse_lazy('accounts:customer')
+class UserCreateView(SuccessMessageMixin, CreateView):
+    template_name = "register.html"
+    form_class = SignUpForm
+    model = User
+    success_message = "You've registered successfully"
+    success_url = reverse_lazy('accounts:customer')
 
 
 def user_login(request):
@@ -228,17 +150,6 @@ class LogoutView(View):
         logout(self.request)
         messages.success(self.request, "You've logged out successfully.")
         return redirect('accounts:login')
-
-
-# class ProfileView(SuccessMessageMixin, UpdateView):
-#     template_name = 'profile.html'
-#     form_class = ProfileModelForm
-#     success_url = reverse_lazy('')
-#     success_message = "You're profile has been updated successfully"
-
-#     def get_object(self, queryset=None):
-#         profile, created = Profile.objects.get_or_create(user=self.request.user)
-#         return profile
 
 
 def driver(request):
@@ -312,21 +223,6 @@ def supplier(request):
 
 
 @login_required(login_url=reverse_lazy('accounts:login'))
-def designer(request):
-    return render(request, 'design/index.html')
-
-
-@login_required(login_url=reverse_lazy('accounts:login'))
-def installer(request):
-    return render(request, 'installer/index.html')
-
-
-@login_required(login_url=reverse_lazy('accounts:login'))
-def supervisor(request):
-    return render(request, 'supervisor/index.html')
-
-
-@login_required(login_url=reverse_lazy('accounts:login'))
 def dispatch(request):
     pending_count = Cart.objects.filter(is_completed=True).exclude(
         Q(shipping__status='delivered') | Q(shipping__isnull=False)).count()
@@ -338,7 +234,7 @@ def dispatch(request):
 
 def customer_profile(request):
     customer_profile = CustomerProfile.objects.get(user=request.user)
-    # profile, created = CustomerProfile.objects.get_or_create(user=request.user)
+    profile, created = CustomerProfile.objects.get_or_create(user=request.user)
     p_form = CustomerProfileForm(instance=customer_profile)
     form = CustomerForm(instance=request.user)
 
@@ -356,7 +252,7 @@ def customer_profile(request):
         'form': form,
         'customer_profile': customer_profile,
     }
-    return render(request, 'accounts/profiles/customer-profile-create.html', context)
+    return render(request, 'accounts/profiles/customer-profile.html', context)
 
 
 def finance_profile(request):
@@ -436,13 +332,13 @@ def supplier_profile_view(request):
     supplier_profile = SupplyProfile.objects.get(user=request.user)
 
     p_form = SupplierProfileForm(instance=supplier_profile)
-    form = SupplyForm(instance=request.user)
+    form = SupplierForm(instance=request.user)
 
     # Retrieve profile image URL
 
     if request.method == "POST":
         p_form = SupplierProfileForm(request.POST, request.FILES, instance=supplier_profile)
-        form = SupplyForm(request.POST, instance=request.user)
+        form = SupplierForm(request.POST, instance=request.user)
         if p_form.is_valid() and form.is_valid():
             p_form.save()
             form.save()
@@ -456,16 +352,39 @@ def supplier_profile_view(request):
     return render(request, 'accounts/profiles/supplier-profile.html', context)
 
 
-def service_provider_profile(request):
-    service_provider_profile = PackerProfile.objects.get(user=request.user)
+# def dispatch_profile(request):
+#     dispatch_profile = DispatchProfile.objects.get(user=request.user)
+#
+#     p_form = DispatchForm(instance=dispatch_profile)
+#     form = DispatchForm(instance=request.user)
+#
+#     # Retrieve profile image URL
+#
+#     if request.method == "POST":
+#         p_form = DispatchProfileForm(request.POST, request.FILES, instance=dispatch_profile)
+#         form = DispatchForm(request.POST, instance=request.user)
+#         if p_form.is_valid() and form.is_valid():
+#             p_form.save()
+#             form.save()
+#             messages.success(request, 'Profile has been updated successfully')
+#     context = {
+#         'p_form': p_form,
+#         'form': form,
+#         'dispatch_profile': dispatch_profile,
+#     }
+#     return render(request, 'accounts/profiles/dispatch-profile.html', context)
 
-    p_form = PackerProfileForm(instance=service_provider_profile)
+
+def packer_profile(request):
+    packer_profile = PackerProfile.objects.get(user=request.user)
+
+    p_form = PackerProfileForm(instance=packer_profile)
     form = PackerProfileForm(instance=request.user)
 
     # Retrieve profile image URL
 
     if request.method == "POST":
-        p_form = PackerProfileForm(request.POST, request.FILES, instance=service_provider_profile)
+        p_form = PackerProfileForm(request.POST, request.FILES, instance=packer_profile)
         form = PackerProfileForm(request.POST, instance=request.user)
         if p_form.is_valid() and form.is_valid():
             p_form.save()
@@ -474,9 +393,9 @@ def service_provider_profile(request):
     context = {
         'p_form': p_form,
         'form': form,
-        'service_provider_profile': service_provider_profile,
+        'dispatch_profile': packer_profile,
     }
-    return render(request, 'accounts/profiles/service-provider-profile.html', context)
+    return render(request, 'accounts/profiles/packer-profile.html', context)
 
 
 def customer_password_change(request):
@@ -544,7 +463,7 @@ def inventory_password_change(request):
     return render(request, 'accounts/password-change/inventory-change-password.html', {'form': form})
 
 
-def service_provider_password_change(request):
+def packer_password_change(request):
     form = PasswordChangeForm(request.user)
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
@@ -554,9 +473,23 @@ def service_provider_password_change(request):
             messages.success(request, 'Your password was successfully updated!')
         else:
             messages.info(request, 'Please correct the errors below.')
-    return render(request, 'accounts/password-change/service-provider-change-password.html', {'form': form})
+    return render(request, 'accounts/password-change/packer-change-password.html', {'form': form})
 
-    # messages
+
+def dispatch_password_change(request):
+    form = PasswordChangeForm(request.user)
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important
+            messages.success(request, 'Your password was successfully updated!')
+        else:
+            messages.info(request, 'Please correct the errors below.')
+    return render(request, 'accounts/password-change/diapatch-change-password.html', {'form': form})
+
+
+# messages
 
 
 from django.views.generic.edit import CreateView

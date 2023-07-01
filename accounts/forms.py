@@ -97,7 +97,7 @@ class SupplierProfileForm(ModelForm):
         fields = ['image', 'gender']
 
 
-class SupplyForm(ModelForm):
+class SupplierForm(ModelForm):
     class Meta:
         model = Supply
         fields = ['last_name', 'first_name', 'email']
@@ -125,6 +125,18 @@ class PackerForm(ModelForm):
     class Meta:
         model = Packer
         fields = ['last_name', 'first_name', 'email']
+
+
+# class DispatchProfileForm(ModelForm):
+#     class Meta:
+#         model = DispatchProfile
+#         fields = ['image', 'gender', ]
+#
+#
+# class DispatchForm(ModelForm):
+#     class Meta:
+#         model = DispatchProfile
+#         fields = ['last_name', 'first_name', 'email']
 
 
 class FinanceProfileForm(ModelForm):

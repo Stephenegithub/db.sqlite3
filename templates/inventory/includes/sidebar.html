@@ -14,15 +14,17 @@
         <i class="zmdi zmdi-view-dashboard"></i> <span>Dashboard</span>
       </a>
     </li>
-      <li>
-      <a href="{% url 'inventory:product_list' %}">
-        <i class="zmdi zmdi-format-list-bulleted"></i> <span>Stock</span>
+
+      <li class="dropdown">
+      <a href="{% url 'inventory:product_list' %}" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="zmdi zmdi-grid"></i> <span>Stock</span>
       </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="zmdi zmdi-format-list-bulleted"></i> <span>Stock Out</span>
-      </a>
+      <ul class="dropdown-menu">
+        <li><a href="{% url 'products:add-product' %}">Add Stock</a></li>
+        <li><a href="#">Update Stock</a></li>
+        <li><a href="#">Delete Product</a></li>
+          <li><a href="{% url 'inventory:stock_out' %}">Stock Out</a></li>
+      </ul>
     </li>
         <li>
         <a href="#">

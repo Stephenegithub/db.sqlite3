@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'products',
     'shipping',
     'supply',
+    'phonenumber_field',
+
 ]
 
 MIDDLEWARE = [

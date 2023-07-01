@@ -1,0 +1,12 @@
+<!-- inventory/templates/inventory/delete_product.html -->
+
+{% extends 'inventory/layouts/base.html' %}
+
+{% block content %}
+  <h2>Delete Product</h2>
+  <p>Are you sure you want to delete the product "{{ product.name }}"?</p>
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+  </form>
+{% endblock %}

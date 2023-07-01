@@ -82,7 +82,6 @@ class CustomUser(AbstractUser):
     #     return self.is_superuser
 
 
-
 class UserProfileManager(BaseUserManager):
     """Helps Django work with our custom user model."""
 
@@ -173,6 +172,14 @@ class PackerProfile(Profile):
     class Meta:
         verbose_name = 'Packer Profile'
         verbose_name_plural = 'Packers Profile'
+
+#
+# class DispatchProfile(Profile):
+#     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='dispatch_profile')
+#
+#     class Meta:
+#         verbose_name = 'Dispatch Profile'
+#         verbose_name_plural = 'Dispatchers Profile'
 
 
 class Conversation(models.Model):
